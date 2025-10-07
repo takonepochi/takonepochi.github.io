@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>蛸音ポチ 🦑</title>
+<style>
+body {
+    background-color: #fffaf2;
+    font-family: "MS PGothic", "Comic Sans MS", sans-serif;
+    margin: 0;
+    overflow: hidden;
+    color: #333;
+}
+.window {
+    border: 2px solid #ff9933;
+    background: #fff;
+    width: 90%;
+    max-width: 850px;
+    height: 90vh;
+    margin: 2vh auto;
+    border-radius: 10px;
+    box-shadow: 3px 3px 0 #ffcc80;
+    display: flex;
+    flex-direction: column;
+}
+.title-bar {
+    background: linear-gradient(to right, #ffb366, #ff9933);
+    color: white;
+    padding: 6px 10px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.content {
+    display: flex;
+    flex: 1;
+}
+.sidebar {
+    width: 150px;
+    background-color: #fff7e6;
+    border-right: 2px solid #ffcc80;
+    padding: 10px;
+}
+.sidebar button {
+    display: block;
+    width: 100%;
+    margin-bottom: 8px;
+    background: #ffe0b3;
+    border: 1px solid #ff9933;
+    border-radius: 6px;
+    padding: 6px;
+    cursor: pointer;
+    font-family: inherit;
+}
+.sidebar button:hover {
+    background: #ffcc80;
+}
+iframe {
+    flex: 1;
+    border: none;
+    background-color: #fffaf2;
+}
+footer {
+    text-align: center;
+    font-size: 12px;
+    background: #fff0d9;
+    border-top: 2px solid #ffcc80;
+    padding: 4px;
+}
+</style>
+</head>
+<body>
+<div class="window">
+  <div class="title-bar">🐙 蛸音ポチ Official Site</div>
+  <div class="content">
+    <div class="sidebar">
+      <button onclick="loadPage('about.html')">About</button>
+      <button onclick="loadPage('voice.html')">Voice Info</button>
+      <button onclick="loadPage('gallery.html')">Gallery</button>
+      <button onclick="loadPage('download.html')">Download</button>
+    </div>
+    <iframe id="mainframe" src="about.html"></iframe>
+  </div>
+  <footer>© 2025 Takone Pochi | 🦑 Retro-cute vibes</footer>
+</div>
+
+<script>
+var mainFrame;
+var firstLoad = true;
+var updateTitle = true;
+var pageParam = "page";
+var titlePrefix = "🐙 蛸音ポチ - ";
+var hitCounterFunction = undefined;
+
+// Pages content for demo purposes (replace with real .html pages if hosting separately)
+const demoPages = {
+    "about.html": `<h2>About 蛸音ポチ</h2><p style="padding:10px;">蛸音ポチ is an orange-themed male UTAUloid. Emotionless when calm, funny when happy, but anger-prone 🦑</p>`,
+    "voice.html": `<h2>Voice Info</h2><p style="padding:10px;">CV Voicebank, range C3-F4, engine: Moresampler</p>`,
+    "gallery.html": `<h2>Gallery</h2><p style="padding:10px;">[Placeholder for cute art]</p><img src="https://placehold.co/400x250/ffb366/ffffff?text=蛸音ポチ" style="display:block;margin:0 auto;">`,
+    "download.html": `<h2>Download</h2><p style="padding:10px;">Get 蛸音ポチ’s voicebank:</p><p style="text-align:center;"><a href="https://github.com/takonepochi/downloads/releases" target="_blank" style="background:#ff9933;color:white;padding:8px 12px;border-radius:6px;text-decoration:none;">🦑 Download Here</a></p>`
+};
+
+// Event to handle first page load - Also sets up the mainFrame
+window.addEventListener("DOMContentLoaded", (e) => {
+    mainFrame = document.getElementById("mainframe");
+    mainFrame.addEventListener("load", updateHistory, false);
+    setMainFrame();
+});
+
+// Event to handle back button presses
+window.addEventListener("popstate", function (e) {
+    if (e.state !== null) {
+        setMainFrame();
+    }
+});
+
+// Checks to see if a page parameter exists and sets the mainframe src to that page
+function setMainFrame() {
+    let params = new URLSearchParams(window.location.search);
+    let page = params.get(pageParam);
+    if (page != null && demoPages[page]) {
+        mainFrame.srcdoc = demoPages[page];
+    } else {
+        mainFrame.srcdoc = demoPages["about.html"];
+    }
+}
+
+// Updates the browser history with the current page
+function updateHistory() {
+    let title = titlePrefix + mainFrame.contentDocument.title || "蛸音ポチ";
+
+    if (firstLoad) {
+        firstLoad = false;
+        if (updateTitle) {
+            document.title = title;
+        }
+        if (hitCounterFunction != undefined) hitCounterFunction();
+        return;
+    }
+
+    let pageName = Object.keys(demoPages).find(key => demoPages[key] === mainFrame.srcdoc) || "about.html";
+    history.replaceState({}, title, "?" + pageParam + "=" + pageName);
+
+    if (updateTitle) document.title = title;
+    if (hitCounterFunction != undefined) hitCounterFunction();
+}
+
+// Load page on sidebar button click
+function loadPage(url) {
+    if (demoPages[url]) {
+        mainFrame.srcdoc = demoPages[url];
+        history.pushState({}, titlePrefix + url, "?" + pageParam + "=" + url);
+    }
+}
+</script>
+</body>
+</html>
