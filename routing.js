@@ -4,7 +4,7 @@ const titlePrefix = "🐙 蛸音ポチ - ";
 function loadPage(url) {
     mainFrame.src = url;
     document.title = titlePrefix + url.replace(".html","");
-    history.pushState({page: url}, "", "?" + "page=" + url);
+    history.pushState({page: url}, "", "?" + "p=" + url);
 }
 
 window.addEventListener("DOMContentLoaded", () => {
