@@ -3,14 +3,52 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Voice Info - 蛸音ポチ 🦑</title>
+  <title>{{Voice Info}} - 蛸音ポチ 🦑</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h2>Voice Info</h2>
-  <p style="padding:10px;">Romaji CV Voicebank<br>
-  OTO made by: Moresampler</br>
-  Range: No fixed range
-  Reclist used: <a href="https://wastelandutau.neocities.org/jp/cv#stan" target="_blank">WASTELAND UTAU: JP CV ROMAJI</a> </p>
+  <h2>{{Voice Info}}</h2>
+  <p style="padding:10px;">
+    {{Romaji CV Voicebank}}<br>
+    {{OTO made by}}: Moresampler<br>
+    {{Range}}: {{No fixed range}}<br>
+    {{Reclist used}}: 
+    <a href="https://wastelandutau.neocities.org/jp/cv#stan" target="_blank">{{WASTELAND UTAU: JP CV ROMAJI}}</a>
+  </p>
+
+  <script>
+    // --- Localization system ---
+    const translations = {
+      "jp": {
+        "Voice Info": "ボイス情報",
+        "Romaji CV Voicebank": "ローマ字CVボイスバンク",
+        "OTO made by": "OTO作成者",
+        "Range": "音域",
+        "No fixed range": "固定範囲なし",
+        "Reclist used": "使用レクリスト",
+        "WASTELAND UTAU: JP CV ROMAJI": "WASTELAND UTAU: 日本語CVローマ字"
+      },
+      "en": {
+        "Voice Info": "Voice Info",
+        "Romaji CV Voicebank": "Romaji CV Voicebank",
+        "OTO made by": "OTO made by",
+        "Range": "Range",
+        "No fixed range": "No fixed range",
+        "Reclist used": "Reclist used",
+        "WASTELAND UTAU: JP CV ROMAJI": "WASTELAND UTAU: JP CV ROMAJI"
+      }
+    };
+
+    // Detect ?jp
+    const lang = window.location.search.includes("jp") ? "jp" : "en";
+
+    // Replace placeholders in the HTML
+    document.body.innerHTML = document.body.innerHTML.replace(/\{\{(.+?)\}\}/g, (match, key) => {
+      return translations[lang][key.trim()] || key;
+    });
+    document.title = document.title.replace(/\{\{(.+?)\}\}/g, (match, key) => {
+      return translations[lang][key.trim()] || key;
+    });
+  </script>
 </body>
 </html>
