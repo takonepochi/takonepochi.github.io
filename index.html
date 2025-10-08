@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>蛸音ポチ 🦑</title>
-<link rel="stylesheet" href="./style.css">
+<title>🐙 蛸音ポチ</title>
+<link rel="stylesheet" href="/style.css">
 </head>
 <body>
 <div class="window">
@@ -16,66 +16,37 @@
       <button onclick="loadPage('gallery.html')">Gallery</button>
       <button onclick="loadPage('download.html')">Download</button>
     </div>
-    <iframe id="mainframe" srcdoc="<h2 style='text-align:center;'>Welcome to 蛸音ポチ’s site! 🦑</h2><p style='padding:10px;'>Click the buttons on the left to explore.</p>"></iframe>
+    <iframe id="mainframe" src="about.html"></iframe>
   </div>
   <footer>© 2025 Takone Pochi | 🦑 Retro-cute vibes</footer>
 </div>
 
 <script>
-var mainFrame;
-var firstLoad = true;
-var updateTitle = true;
-var pageParam = "page";
-var titlePrefix = "🐙 蛸音ポチ - ";
-var hitCounterFunction = undefined;
+const mainFrame = document.getElementById("mainframe");
+const titlePrefix = "🐙 蛸音ポチ - ";
 
-const demoPages = {
-    "about.html": `<h2>About 蛸音ポチ</h2><p style="padding:10px;">蛸音ポチ is an orange-themed male UTAUloid. Emotionless when calm, funny when happy, but anger-prone 🦑</p>`,
-    "voice.html": `<h2>Voice Info</h2><p style="padding:10px;">CV Voicebank — no fixed range! 🦑✨<br>Engine: Moresampler recommended<br>Character: Playful and expressive, surprises guaranteed!</p>`,
-    "gallery.html": `<h2>Gallery</h2><p style="padding:10px;">[Placeholder for cute art]</p><img src="https://placehold.co/600x400/ffb366/ffffff?text=蛸音ポチ" style="display:block;margin:0 auto;">`,
-    "download.html": `<h2>Download</h2><p style="padding:10px;">Get 蛸音ポチ’s voicebank:</p><p style="text-align:center;"><a href="https://github.com/takonepochi/downloads/releases" target="_blank" style="background:#ff9933;color:white;padding:10px 16px;border-radius:6px;text-decoration:none;">🦑 Download Here</a></p>`
-};
+function loadPage(url) {
+    mainFrame.src = url;
+    document.title = titlePrefix + url.replace(".html","");
+    history.pushState({page: url}, "", "?" + "page=" + url);
+}
 
 window.addEventListener("DOMContentLoaded", () => {
-    mainFrame = document.getElementById("mainframe");
-    mainFrame.addEventListener("load", updateHistory, false);
-    setMainFrame();
+    // Check URL param to load page
+    const params = new URLSearchParams(window.location.search);
+    const page = params.get("page");
+    if (page) {
+        mainFrame.src = page;
+        document.title = titlePrefix + page.replace(".html","");
+    }
 });
 
 window.addEventListener("popstate", (e) => {
-    if (e.state !== null) setMainFrame();
+    if (e.state && e.state.page) {
+        mainFrame.src = e.state.page;
+        document.title = titlePrefix + e.state.page.replace(".html","");
+    }
 });
-
-function setMainFrame() {
-    let params = new URLSearchParams(window.location.search);
-    let page = params.get(pageParam);
-    if (page != null && demoPages[page]) {
-        mainFrame.srcdoc = demoPages[page];
-    } else {
-        mainFrame.srcdoc = demoPages["about.html"];
-    }
-}
-
-function updateHistory() {
-    let title = titlePrefix + (mainFrame.contentDocument.title || "蛸音ポチ");
-    if (firstLoad) {
-        firstLoad = false;
-        if (updateTitle) document.title = title;
-        if (hitCounterFunction) hitCounterFunction();
-        return;
-    }
-    let pageName = Object.keys(demoPages).find(key => demoPages[key] === mainFrame.srcdoc) || "about.html";
-    history.replaceState({}, title, "?" + pageParam + "=" + pageName);
-    if (updateTitle) document.title = title;
-    if (hitCounterFunction) hitCounterFunction();
-}
-
-function loadPage(url) {
-    if (demoPages[url]) {
-        mainFrame.srcdoc = demoPages[url];
-        history.pushState({}, titlePrefix + url, "?" + pageParam + "=" + url);
-    }
-}
 </script>
 </body>
 </html>
