@@ -5,15 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>蛸音ポチ 🦑</title>
 <style>
+/* Fallback font if MS PGothic is missing */
+@font-face {
+    font-family: "MS Gothic Fallback";
+    src: url("MS Gothic.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
 html, body {
     height: 100%;
     margin: 0;
     padding: 0;
     background-color: #fffaf2;
-    font-family: "MS PGothic", "Comic Sans MS", sans-serif;
+    font-family: "MS PGothic", "MS Gothic Fallback", "Comic Sans MS", sans-serif;
     overflow: hidden;
     color: #333;
 }
+
 .window {
     display: flex;
     flex-direction: column;
