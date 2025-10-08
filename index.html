@@ -15,6 +15,7 @@
       <button onclick="loadPage('voice.html')">Voice Info</button>
       <button onclick="loadPage('gallery.html')">Gallery</button>
       <button onclick="loadPage('download.html')">Download</button>
+      <div id="google_translate_element"></div>
     </div>
     <iframe id="mainframe" src="about.html"></iframe>
   </div>
@@ -23,6 +24,19 @@
 <script>
 document.getElementById("year").textContent = new Date().getFullYear();
 </script>
+              <div id="google_translate_element"></div>
+		<!-- Scripts -->
+
+     <script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en', // Set the default language of the page
+            includedLanguages: '', // Leave blank to include all languages
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+        }, 'google_translate_element');
+    }
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <script src="routing.js"></script>
 </body>
 </html>
