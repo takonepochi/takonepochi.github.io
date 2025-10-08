@@ -1,3 +1,4 @@
+// inspired by https://melonking.net
 const mainFrame = document.getElementById("mainframe");
 const titlePrefix = "🐙 蛸音ポチ - ";
 
