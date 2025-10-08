@@ -7,11 +7,28 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h2>{{Voice Info}}</h2>
-  <p style="padding:10px;">
+  <h2 data-en="Voice bank Info" data-jp="音源情報">Voice bank Info</h2>
+  <p style="padding:10px"
+     data-en="Romaji CV Voicebank<br>OTO made by: Moresampler<br>Range: No fixed range<br>Reclist used: 
+     <a href='https://wastelandutau.neocities.org/jp/cv#stan' target='_blank'>WASTELAND UTAU: JP CV ROMAJI</a>"
+     data-jp="ローマ字CV音源<br>OTO作成者: Moresampler<br>音域: 固定なし<br>使用レクリスト: 
+     <a href='https://wastelandutau.neocities.org/jp/cv#stan' target='_blank'>WASTELAND UTAU: JP CV ROMAJI</a>">
     Romaji CV Voicebank<br>
     OTO made by: Moresampler<br>
     Range: No fixed range<br>
     Reclist used: 
     <a href="https://wastelandutau.neocities.org/jp/cv#stan" target="_blank">WASTELAND UTAU: JP CV ROMAJI</a>
   </p>
+
+  <script>
+    // Check if URL contains ?jp
+    const isJP = window.location.search.includes('jp');
+
+    if (isJP) {
+      document.querySelectorAll('[data-en]').forEach(el => {
+        el.innerHTML = el.getAttribute('data-jp');
+      });
+    }
+  </script>
+</body>
+</html>
