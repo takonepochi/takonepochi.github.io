@@ -17,38 +17,24 @@
   </p>
 
   <script>
-    // --- Localization system ---
-    const translations = {
-      "jp": {
-        "Voice Info": "ボイス情報",
-        "Romaji CV Voicebank": "ローマ字CVボイスバンク",
-        "OTO made by": "OTO作成者",
-        "Range": "音域",
-        "No fixed range": "固定範囲なし",
-        "Reclist used": "使用レクリスト",
-        "WASTELAND UTAU: JP CV ROMAJI": "WASTELAND UTAU: 日本語CVローマ字"
-      },
-      "en": {
-        "Voice Info": "Voice Info",
-        "Romaji CV Voicebank": "Romaji CV Voicebank",
-        "OTO made by": "OTO made by",
-        "Range": "Range",
-        "No fixed range": "No fixed range",
-        "Reclist used": "Reclist used",
-        "WASTELAND UTAU: JP CV ROMAJI": "WASTELAND UTAU: JP CV ROMAJI"
-      }
-    };
+  import { translations, localizeContent, lang, autoLocalizePage } from './localize.js';
 
-    // Detect ?jp
-    const lang = window.location.search.includes("jp") ? "jp" : "en";
+  // Add translations dynamically
+  translations.jp["Voice Info"] = "ボイス情報";
+  translations.jp["Romaji CV Voicebank"] = "ローマ字CVボイスバンク";
+  translations.jp["OTO made by"] = "OTO作成者";
+  translations.jp["Range"] = "音域";
+  translations.jp["No fixed range"] = "固定範囲なし";
+  translations.jp["Reclist used"] = "使用レクリスト";
+  translations.jp["WASTELAND UTAU: JP CV ROMAJI"] = "WASTELAND UTAU: 日本語CVローマ字";
 
-    // Replace placeholders in the HTML
-    document.body.innerHTML = document.body.innerHTML.replace(/\{\{(.+?)\}\}/g, (match, key) => {
-      return translations[lang][key.trim()] || key;
-    });
-    document.title = document.title.replace(/\{\{(.+?)\}\}/g, (match, key) => {
-      return translations[lang][key.trim()] || key;
-    });
+  translations.en["Voice Info"] = "Voice Info";
+  translations.en["Romaji CV Voicebank"] = "Romaji CV Voicebank";
+  translations.en["OTO made by"] = "OTO made by";
+  translations.en["Range"] = "Range";
+  translations.en["No fixed range"] = "No fixed range";
+  translations.en["Reclist used"] = "Reclist used";
+  translations.en["WASTELAND UTAU: JP CV ROMAJI"] = "WASTELAND UTAU: JP CV ROMAJI";
   </script>
 </body>
 </html>
