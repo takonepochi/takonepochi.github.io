@@ -3,7 +3,9 @@ const mainFrame = document.getElementById("mainframe");
 const titlePrefix = "🐙 蛸音ポチ - ";
 
 function loadPage(url) {
-    mainFrame.src = url;
+    const timestamp = Date.now();
+    const urlWithTimestamp = `${url}?${timestamp}`;
+    mainFrame.src = urlWithTimestamp;
     document.title = titlePrefix + url.replace(".html", "");
     history.pushState({ page: url }, "", "?p=" + url);
 }
@@ -18,6 +20,7 @@ window.addEventListener("DOMContentLoaded", () => {
 // Handle back/forward navigation
 window.addEventListener("popstate", (e) => {
     const page = (e.state && e.state.page) || "about.html";
-    mainFrame.src = page;
+    const timestamp = Date.now();
+    mainFrame.src = `${page}?${timestamp}`;
     document.title = titlePrefix + page.replace(".html", "");
 });
