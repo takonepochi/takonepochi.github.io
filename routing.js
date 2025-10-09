@@ -22,4 +22,6 @@ window.addEventListener("DOMContentLoaded", () => {
 window.addEventListener("popstate", (e) => {
     const page = (e.state && e.state.page) || "about.html";
     mainFrame.src = page;
-    docum
+    document.title = titlePrefix + page.replace(".html", "");
+});
+
