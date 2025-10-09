@@ -4,23 +4,22 @@ const titlePrefix = "🐙 蛸音ポチ - ";
 
 function loadPage(url) {
     const timestamp = Date.now();
-    const urlWithTimestamp = `${url}?${timestamp}`;
-    mainFrame.src = urlWithTimestamp;
+    mainFrame.src = url;
     document.title = titlePrefix + url.replace(".html", "");
-    history.pushState({ page: url }, "", "?p=" + url);
+    history.pushState({ page: url }, "", `?p=${url}?${timestamp}`);
 }
 
 // On page load
 window.addEventListener("DOMContentLoaded", () => {
     const params = new URLSearchParams(window.location.search);
-    const page = params.get("p") || "about.html"; // default to about.html
-    loadPage(page);
+    let pageParam = params.get("p") || "about.html"; // default page
+    // Strip off any ?timestamp if present
+    pageParam = pageParam.split("?")[0];
+    loadPage(pageParam);
 });
 
 // Handle back/forward navigation
 window.addEventListener("popstate", (e) => {
     const page = (e.state && e.state.page) || "about.html";
-    const timestamp = Date.now();
-    mainFrame.src = `${page}?${timestamp}`;
-    document.title = titlePrefix + page.replace(".html", "");
-});
+    mainFrame.src = page;
+    docum
