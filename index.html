@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🐙 蛸音ポチ</title>
 <link rel="stylesheet" href="styles.css">
+  <script>
+(function() {
+    const script = document.createElement("script");
+    script.src = `routing.js?${Date.now()}`; // append timestamp
+    script.type = "text/javascript";
+    script.defer = true; // optional, ensures DOM is parsed first
+    document.head.appendChild(script);
+})();
+</script>
 </head>
 <body>
 <div class="window">
@@ -45,6 +54,5 @@
     }
 </script>
 <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-<script src="routing.js"></script>
 </body>
 </html>
